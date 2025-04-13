@@ -78,11 +78,11 @@ async function processSessionData(sessionData) {
     const updatedTheater = await updateTheaterWithReservedSeats(metadata);
     console.log("✅ Reserved seats updated in the theater document.");
     
-    await axios.post(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/api/bookingLog`,
-      bookingData
-    );
-    console.log("✅ Booking sent successfully");
+    // await axios.post(
+    //   `${process.env.NEXT_PUBLIC_SITE_URL}/api/bookingLog`,
+    //   bookingData
+    // );
+    // console.log("✅ Booking sent successfully");
 
     // Save the booking data to Sanity
   } catch (err) {
