@@ -10,19 +10,23 @@ const Success = () => {
 
   useEffect(() => {
     let timer;
-
+  
+    if (!router.isReady) return;
+  
+    const { booking } = router.query;
+  
     if (booking) {
       console.log('Booking Query:', booking);
-
+  
       const fetchBookingAndRedirect = async () => {
         try {
           const bookingFetch = await client.fetch(
             `*[_type == "booking" && uniqueBookingId == $booking][0]`,
             { booking }
           );
-
+  
           const ticketId = bookingFetch?._id;
-
+  
           timer = setTimeout(() => {
             router.push(`/ticket/${booking}?data=${ticketId}`);
           }, 1500);
@@ -36,10 +40,9 @@ const Success = () => {
           });
         }
       };
-
+  
       fetchBookingAndRedirect();
     } else {
-      // Handle the case when `booking` is not available
       toast.error("No booking found", {
         style: {
           borderRadius: "1000px",
@@ -48,9 +51,10 @@ const Success = () => {
         },
       });
     }
-
+  
     return () => clearTimeout(timer);
-  }, [booking, router]);
+  }, [router.isReady, router.query, router]);
+  
 
   return (
     <div className="p-25 h-[100vh] text-amber-50 flex flex-col justify-center items-center">
