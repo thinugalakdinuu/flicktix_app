@@ -27,7 +27,7 @@ export const getStaticPaths = async () => {
 
   const movies = await client.fetch(query);
 
-  const paths = movies.map((movie) => ({
+  const paths = movies?.map((movie) => ({
     params: {
       slug: movie.slug.current,
     },
@@ -41,8 +41,13 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params: { slug } }) => {
   const query = `*[_type == "movie" && slug.current == '${slug}'][0]`;
-
   const movieData = await client.fetch(query);
+
+  if (!movieData) {
+    return {
+      notFound: true,
+    };
+  }
 
   const bannerQuery = '*[_type == "banner"]{ ..., movieSelect-> }';
   const bannerData = await client.fetch(bannerQuery);
@@ -69,11 +74,13 @@ export const getStaticProps = async ({ params: { slug } }) => {
       }
     }
   }`;  
+
   const theaterData = await client.fetch(theaterQuery);
 
   return {
     props: { movieData, bannerData, theaterData },
   };
 };
+
 
 export default MovieDetails;
