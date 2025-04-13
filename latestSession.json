@@ -1,0 +1,16 @@
+{
+  "_type": "booking",
+  "bookingId": "FK6RAZ",
+  "uniqueBookingId": "M958YTZRD9FO",
+  "movieName": "Dune: Part 2",
+  "theaterName": "Localthet",
+  "selectedSeats": [
+    "A4",
+    "A5"
+  ],
+  "showDate": "2025-04-06",
+  "showTime": "02:15 PM",
+  "totalPrice": 10500,
+  "createdAt": "2025-04-06T06:14:04.234Z",
+  "ticketStatus": "reserved"
+}
