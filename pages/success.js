@@ -25,7 +25,7 @@ const Success = () => {
             router.push(`/ticket/${booking}?data=${ticketId}`);
           }, 1500);
         } catch (error) {
-          toast.error(`Error Redirecting : ${error}`, {
+          toast.error(error, {
             style: {
               borderRadius: "1000px",
               background: "#B03C3F",
