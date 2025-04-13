@@ -10,35 +10,45 @@ const Success = () => {
 
   useEffect(() => {
     let timer;
-  
+
     if (booking) {
+      console.log('Booking Query:', booking);
+
       const fetchBookingAndRedirect = async () => {
         try {
           const bookingFetch = await client.fetch(
             `*[_type == "booking" && uniqueBookingId == $booking][0]`,
             { booking }
           );
-  
+
           const ticketId = bookingFetch?._id;
-  
+
           timer = setTimeout(() => {
             router.push(`/ticket/${booking}?data=${ticketId}`);
           }, 1500);
         } catch (error) {
-          toast.error(error, {
+          toast.error(error.message || "An error occurred", {
             style: {
               borderRadius: "1000px",
               background: "#B03C3F",
               color: "#fff",
             },
           });
-          // router.push('/');
         }
       };
-  
+
       fetchBookingAndRedirect();
+    } else {
+      // Handle the case when `booking` is not available
+      toast.error("No booking found", {
+        style: {
+          borderRadius: "1000px",
+          background: "#B03C3F",
+          color: "#fff",
+        },
+      });
     }
-  
+
     return () => clearTimeout(timer);
   }, [booking, router]);
 
