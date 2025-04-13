@@ -1,17 +1,24 @@
 import React from "react";
-
 import { client } from "@/lib/client";
 import DetailsBanner from "@/components/DetailsBanner";
 import AvailableTheater from "@/components/AvailableTheater";
 
-const MovieDetails = ({ movieData, theaterData }) => {  
+const MovieDetails = ({ movieData, theaterData }) => {
+  // Check if movieData and theaterData are available before rendering
+  if (!movieData || !theaterData) {
+    return (
+      <div className="bg-[#0b090a]">
+        <h1 className="text-3xl font-semibold mb-15 pl-5 text-white">Movie details not found</h1>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-[#0b090a]">
       <DetailsBanner details={movieData} />
       <div className="w-full min-h-[400px] sm:min-h-[500px] h-fit md:p-15">
         <h1 className="text-3xl font-semibold mb-15 pl-5 text-white">RESERVE TICKETS</h1>
-      <AvailableTheater theaterDetails={theaterData} movieDetails={movieData} />
-
+        <AvailableTheater theaterDetails={theaterData} movieDetails={movieData} />
       </div>
     </div>
   );
@@ -19,11 +26,10 @@ const MovieDetails = ({ movieData, theaterData }) => {
 
 export const getStaticPaths = async () => {
   const query = `*[_type == "movie"] {
-        slug {
-            current
-        }
+    slug {
+      current
     }
-    `;
+  }`;
 
   const movies = await client.fetch(query);
 
@@ -73,7 +79,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
         }
       }
     }
-  }`;  
+  }`;
 
   const theaterData = await client.fetch(theaterQuery);
 
@@ -81,6 +87,5 @@ export const getStaticProps = async ({ params: { slug } }) => {
     props: { movieData, bannerData, theaterData },
   };
 };
-
 
 export default MovieDetails;
