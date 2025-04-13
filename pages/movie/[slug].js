@@ -4,8 +4,8 @@ import DetailsBanner from "@/components/DetailsBanner";
 import AvailableTheater from "@/components/AvailableTheater";
 
 const MovieDetails = ({ movieData, theaterData }) => {
-  // Check if movieData and theaterData are available before rendering
-  if (!movieData || !theaterData) {
+  // Additional checks to make sure movieData and theaterData are defined and have the necessary structure
+  if (!movieData || !theaterData || !Array.isArray(theaterData)) {
     return (
       <div className="bg-[#0b090a]">
         <h1 className="text-3xl font-semibold mb-15 pl-5 text-white">Movie details not found</h1>
@@ -82,6 +82,14 @@ export const getStaticProps = async ({ params: { slug } }) => {
   }`;
 
   const theaterData = await client.fetch(theaterQuery);
+
+  // Additional check to ensure theaterData is an array
+  if (!Array.isArray(theaterData)) {
+    console.error("Theater data is not in the expected format:", theaterData);
+    return {
+      props: { movieData, theaterData: [] },  // fallback to empty array if data is incorrect
+    };
+  }
 
   return {
     props: { movieData, bannerData, theaterData },
