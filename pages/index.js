@@ -59,7 +59,7 @@ export const Home = ({
 
         {/* EDITORS CHOICE */}
         <div className="mb-15 pt-20 px-5 flex flex-flex place-content-between">
-          <h1 className="text-3xl font-semibold text-white">EDITOR'S CHOICE</h1>
+          <h1 className="text-3xl font-semibold text-white">EDITOR&apos;S CHOICE</h1>
           <Link href={`/movies`}>
             <Button className="text-white text-sm cursor-pointer hover:ring ring-[#797878]">
               view more

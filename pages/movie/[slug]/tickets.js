@@ -18,7 +18,7 @@ const MovieTickets = ({ movieData, theaterData }) => {
     if(!selected) {
       router.replace('/')
     }
-  }, [])
+  }, [router, selected])
 
   return (
     <div>

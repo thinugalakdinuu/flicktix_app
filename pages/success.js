@@ -50,7 +50,7 @@ const Success = () => {
       <div className="flex flex-row items-center justify-center gap-5">
         <AiOutlineLoading3Quarters size={20} className="animate-spin" />
         <p className="text-sm text-[#d3d3d3]">
-          You'll be redirected to the ticket page...
+          You&apos;ll be redirected to the ticket page...
         </p>
       </div>
     </div>

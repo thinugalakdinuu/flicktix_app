@@ -7,7 +7,7 @@ import Movie from "@/components/Movie";
 
 import { Button } from "@/components/ui/button";
 
-const movies = () => {
+const Movies = () => {
   const [moviesList, setMoviesList] = useState([]);
 
   useEffect(() => {
@@ -50,4 +50,4 @@ const movies = () => {
   );
 };
 
-export default movies;
+export default Movies;
