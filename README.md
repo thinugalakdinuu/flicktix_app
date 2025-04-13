@@ -7,7 +7,7 @@ FlickTix is a modern, intuitive, and seamless movie ticket reservation platform.
 ---
 
 ## 🚀 Live Demo
-🌐 [https://flicktix.vercel.app](https://flicktix.vercel.app)
+🌐 [https://flicktix-app.vercel.app](https://flicktix-app.vercel.app)
 
 ---
 
@@ -28,7 +28,7 @@ FlickTix is a modern, intuitive, and seamless movie ticket reservation platform.
 |--------------|----------------------------------------|
 | **Frontend** | Next.js, React, Tailwind CSS, ShadCN UI |
 | **Backend**  | Sanity CMS, Stripe, Vercel Serverless Functions |
-| **Database** | Sanity.io (Headless CMS)               |
+| **Database** | Sanity.io                              |
 | **Payment**  | Stripe Integration                     |
 
 ---
@@ -38,11 +38,10 @@ FlickTix is a modern, intuitive, and seamless movie ticket reservation platform.
 ```bash
 flicktix/
 │
-├── app/                # Next.js App Router Pages
+├── pages/              # Next.js Page Router Pages
+|    ├── api/           # API
 ├── components/         # Reusable UI Components
 ├── lib/                # Utility Functions (Stripe, Sanity)
-├── sanity/             # Sanity Studio + Schemas
+├── sanity_flicktix/    # Sanity Studio + Schemas
 ├── public/             # Static Assets
-├── tailwind.config.js  # Tailwind Configuration
-├── .env.example        # Environment Variable Template
-└── README.md           # This File
+├── .env                # Environment Variable Template
