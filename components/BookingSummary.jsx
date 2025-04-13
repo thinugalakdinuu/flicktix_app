@@ -97,7 +97,6 @@ const BookingSummary = ({ theaterDetails, movieDetails }) => {
     setIsDialogOpen(true);
   };
 
-
   const handleSendOtp = async () => {
     try {
       const response = await axios.post("/api/send-otp", { phoneNumber });
@@ -142,11 +141,8 @@ const BookingSummary = ({ theaterDetails, movieDetails }) => {
         const hashedPhone = await hashSHA256(phoneNumber);
         setMobileNumberHash(hashedPhone);
         sessionStorage.setItem("phone_number", phoneNumber);
-
-
-        console.log(phoneNumber);
-
         localStorage.setItem("mobileVerification", true);
+
         toast.success("OTP verified!", {
           style: {
             borderRadius: "1000px",
@@ -154,6 +150,9 @@ const BookingSummary = ({ theaterDetails, movieDetails }) => {
             color: "#000",
           },
         });
+
+        // ✅ Call handleCheckout here directly
+        handleCheckout();
       } else {
         toast.error("Invalid OTP.", {
           style: {
@@ -186,13 +185,13 @@ const BookingSummary = ({ theaterDetails, movieDetails }) => {
     // Store stripe theater ID in sessionStorage
     sessionStorage.setItem("theaterStripeId", stripeTheaterId);
 
-    const getPhoneNumber = sessionStorage.getItem('phone_number')
+    const getPhoneNumber = sessionStorage.getItem("phone_number");
     const secretKey = process.env.NEXT_PUBLIC_MOBILE_ENCRYPTION_KEY;
     const encryptedPhoneNumber = CryptoJS.AES.encrypt(
       phoneNumber,
       secretKey
     ).toString();
-    sessionStorage.setItem('phone_hash', encryptedPhoneNumber);
+    sessionStorage.setItem("phone_hash", encryptedPhoneNumber);
 
     const response = await fetch("/api/stripe", {
       method: "POST",
@@ -253,9 +252,8 @@ const BookingSummary = ({ theaterDetails, movieDetails }) => {
   };
 
   useEffect(() => {
-    if (isOtpVerified) {
-      handleCheckout();
-    }
+    console.log("OTP Verified changed:", isOtpVerified);
+    if (isOtpVerified) handleCheckout();
   }, [isOtpVerified]);
 
   const theater = theaterDetails.find((t) => t._id === theaterId);
